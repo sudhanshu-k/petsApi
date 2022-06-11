@@ -20,4 +20,4 @@ Excel file parser.<br>
 
 ## An overview of how excel is being parsed<br>
 This API uses multer middleware to upload excel file.<br>
-Then, excel is parsed using xlsx package. First, we use XLSX.read() function to parse excel. Then, we store the name of sheets and create an array to store the response to send back. We itterate over all the sheets and convert their data to json form and we call create() method with the json data and store the returned object in our array. If no error occurs, we send back the array as response.<br>
+Then, excel is parsed using xlsx package. First, it uses XLSX.read() function to parse excel. Then, stores the name of sheets and create an array to store the response to send back. Then itterates over all the sheets and convert their data to json form and calls create() method with the json data and store the returned object in our array. If no error occurs, it send back the array as response.<br>
