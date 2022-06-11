@@ -21,17 +21,16 @@ app.post("/", upload.single("petsExcel"), async (req, res) => {
         //Extracting data from excel
         const excelFile = XLSX.read(req.file.buffer);
         const nameList = excelFile.SheetNames;
-        const jsonData = XLSX.utils.sheet_to_json(
-            excelFile.Sheets[nameList[0]]
-        );
+        var savedData = new Array();
 
-        if (jsonData.length === 0) {
-            return res.status(400).json({
-                message: "xml sheet has no data",
-            });
+        for (let i = 0; i < nameList.length; i++) {
+            const jsonData = XLSX.utils.sheet_to_json(
+                excelFile.Sheets[nameList[i]]
+            );
+
+            savedData.push(await Pets.create(jsonData));
         }
 
-        const savedData = await Pets.create(jsonData);
         return res.status(201).json(savedData);
     } catch (err) {
         return res.status(400).json({ message: err.message });

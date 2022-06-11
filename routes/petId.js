@@ -1,12 +1,11 @@
 const express = require("express");
-const { remove } = require("../models/Pets");
 const Pets = require("../models/Pets");
 const router = express.Router();
 
 router.get("/:petId", async (req, res) => {
     try {
         const pet = await Pets.findById(req.params.petId);
-
+        
         if (pet === null) {
             res.status(404).json({ message: "Not Found." });
         } else {
